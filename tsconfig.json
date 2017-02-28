@@ -1,0 +1,26 @@
+{
+    "files": [
+        "src/*.tsx",
+        "sample/*.tsx",
+        "!src/*.spec.tsx"
+    ],
+    "compilerOptions": {
+        "strictNullChecks": false,
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "target": "es6",
+        "allowJs": true,
+        "jsx": "preserve",
+        "module": "commonjs",
+        "sourceMap": true
+    },
+  "exclude": [
+      "node_modules",
+      "src/*.spec.ts"
+  ],
+  "include": [
+      "./src/**/*",
+      "./sample/**/*"
+  ]
+}
