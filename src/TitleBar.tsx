@@ -12,6 +12,9 @@ interface Props {
   onUnmaximize: React.MouseEventHandler<any>,
   onClose: React.MouseEventHandler<any>,
   isMax: boolean,
+
+  theme?: string, 
+
   classes?: {
     titlebar: string,
     actions: string,
@@ -48,41 +51,64 @@ const styles = {
       fontFamily: 'Segoe UI',
       fontWeight: 'normal'
     },
-  },
-  actions: {
-    display: 'inline-block',
-    float: 'right',
-    margin: 0,
-    padding: 0,
-    '& span': {
-      width: '30px',
-      height: '30px',
+
+    '& .actions': {
       display: 'inline-block',
+      float: 'right',
       margin: 0,
-      padding: '0 5px',
-      cursor: 'pointer',
-      backgroundSize: '15px 15px',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
-      '&:hover': {
-        backgroundColor: 'rgba(0, 0, 0, 0.15)'
-      },
-      '&.icon_minimize': {
-        backgroundImage: Mustache.render('url({{{icon}}})', { icon: assets.MINIMIZE_ICON })
-      },
-      '&.icon_maximize': {
-        backgroundImage: Mustache.render('url({{{icon}}})', { icon: assets.MAXIMIZE_ICON })
-      },
-      '&.icon_unmaximize': {
-        backgroundImage: Mustache.render('url({{{icon}}})', { icon: assets.RESTORE_ICON })
-      },
-      '&.icon_close': {
-        backgroundImage: Mustache.render('url({{{icon}}})', { icon: assets.CLOSE_ICON })
-      },
-      '&.icon_close:hover': {
-        backgroundColor: '#FF1744'
+      padding: 0,
+      height: '32px',
+      
+      '& span': {
+        width: '34px',
+        height: '32px',
+        display: 'inline-block',
+        margin: 0,
+        padding: '0 5px',
+        cursor: 'pointer',
+        backgroundSize: '15px 15px',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        '&:hover': {
+          backgroundColor: 'rgba(0, 0, 0, 0.15)'
+        },
+        '&.icon_minimize': {
+          backgroundImage: Mustache.render('url({{{icon}}})', { icon: assets.MINIMIZE_ICON })
+        },
+        '&.icon_maximize': {
+          backgroundImage: Mustache.render('url({{{icon}}})', { icon: assets.MAXIMIZE_ICON })
+        },
+        '&.icon_unmaximize': {
+          backgroundImage: Mustache.render('url({{{icon}}})', { icon: assets.RESTORE_ICON })
+        },
+        '&.icon_close': {
+          backgroundImage: Mustache.render('url({{{icon}}})', { icon: assets.CLOSE_ICON })
+        },
+        '&.icon_close:hover': {
+          backgroundColor: '#FF1744'
+        }
       }
-    }
+    },
+
+    '&.purple': {
+      backgroundColor: '#9C27B0'
+    },
+
+    '&.pink': {
+      backgroundColor: '#E91E63',
+
+      '& .actions .icon_close:hover': {
+        backgroundColor: '#616161'
+      }
+    },
+
+    '&.indigo': {
+      backgroundColor: '#3F51B5'
+    },
+
+    '&.orange': {
+      backgroundColor: '#FF9800'
+    },
   }
 }
 
@@ -98,14 +124,14 @@ export default class TitleBar extends React.Component<Props, undefined> {
   }
 
   render(){
-    let { title, icon, onMinimize, onMaximize, onUnmaximize, onClose, isMax, classes } = this.props;
+    let { title, icon, onMinimize, onMaximize, onUnmaximize, onClose, isMax, theme, classes } = this.props;
     return (
-      <div className={classes&&classes.titlebar}>
+      <div className={classes&&classes.titlebar + ' ' + theme}>
         <div className="app_icon_box">
           <img className="app_icon" src={icon}/>
         </div>
         <span className="title">{title}</span>
-        <div className={classes&&classes.actions}>
+        <div className="actions">
           <span className='icon_minimize' onClick={onMinimize}></span>
           { isMax 
             ? <span className='icon_unmaximize' onClick={onUnmaximize}></span> 
