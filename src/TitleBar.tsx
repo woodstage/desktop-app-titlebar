@@ -24,7 +24,6 @@ interface Props {
 
 const styles = {
   titlebar: {
-    width: '500px',
     height: '32px',
     lineHeight: '32px',
     backgroundColor: '#2196F3',
@@ -50,6 +49,12 @@ const styles = {
       fontSize: '15px',
       fontFamily: 'Segoe UI',
       fontWeight: 'normal'
+    },
+
+    '&:after': {
+      content: '',
+      display: 'block',
+      clear: 'both'
     },
 
     '& .actions': {
@@ -123,10 +128,22 @@ export default class TitleBar extends React.Component<Props, undefined> {
     alert(JSON.stringify(nextProps));
   }
 
+  onMouseDown(event){
+    //Disable text selection when double click or drag cursor over
+    event.preventDefault();
+    event.stopPropagation();
+    //It cannot disable the selection when drag from out of the context. In this time, you should do the same thing like above in the context that drag start
+    //Sample
+    // document.addEventListener('mousedown', e => {
+    //     e.stopPropagation();
+    //     e.preventDefault();
+    // })
+  }
+
   render(){
     let { title, icon, onMinimize, onMaximize, onUnmaximize, onClose, isMax, theme, classes } = this.props;
     return (
-      <div className={classes&&classes.titlebar + ' ' + theme}>
+      <div className={classes&&classes.titlebar + ' ' + theme} onMouseDown={this.onMouseDown}>
         <div className="app_icon_box">
           <img className="app_icon" src={icon}/>
         </div>
