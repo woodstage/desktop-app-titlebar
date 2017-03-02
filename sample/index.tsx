@@ -6,3 +6,9 @@ ReactDOM.render(
     <App/>,
     document.getElementById("example")
 );
+
+//Disable double click selection and drag cursor selection
+document.addEventListener('mousedown', e => {
+    e.stopPropagation();
+    e.preventDefault();
+})
